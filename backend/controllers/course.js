@@ -282,28 +282,56 @@ export const enrollCourse = async (req, res) => {
   }
 };
 
+// export const unenrollCourse = async (req, res) => {
+//   try {
+//     const { username } = req.body;
+//     const course = await Course.findById(req.params.id);
+//     if (!course) return res.status(404).json({ message: 'Corso non trovato' });
+
+//     const student = await Student.findOne({ username, user: req.user.userId });
+//     if (!student) return res.status(404).json({ message: 'Studente non trovato o username non corretto' });
+
+//     const index = student.corsiIscritti.indexOf(course._id);
+//     if (index > -1) {
+//       student.corsiIscritti.splice(index, 1);
+//       await student.save();
+//       res.json({ message: 'Cancellazione dal corso avvenuta con successo' });
+//     } else {
+//       res.status(400).json({ message: 'Non sei iscritto a questo corso' });
+//     }
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
+
 export const unenrollCourse = async (req, res) => {
   try {
+    const { id } = req.params;
     const { username } = req.body;
-    const course = await Course.findById(req.params.id);
-    if (!course) return res.status(404).json({ message: 'Corso non trovato' });
 
-    const student = await Student.findOne({ username, user: req.user.userId });
-    if (!student) return res.status(404).json({ message: 'Studente non trovato o username non corretto' });
-
-    const index = student.corsiIscritti.indexOf(course._id);
-    if (index > -1) {
-      student.corsiIscritti.splice(index, 1);
-      await student.save();
-      res.json({ message: 'Cancellazione dal corso avvenuta con successo' });
-    } else {
-      res.status(400).json({ message: 'Non sei iscritto a questo corso' });
+    // Verifica che lo studente sia iscritto al corso
+    const student = await Student.findOne({ username });
+    if (!student) {
+      return res.status(404).json({ message: 'Studente non trovato' });
     }
+
+    const course = await Course.findById(id);
+    if (!course) {
+      return res.status(404).json({ message: 'Corso non trovato' });
+    }
+
+    // Rimuovi il corso dalla lista dei corsi iscritti dello studente
+    student.corsiIscritti = student.corsiIscritti.filter(
+      courseId => courseId.toString() !== id
+    );
+    await student.save();
+
+    res.json({ message: 'Cancellazione dell\'iscrizione al corso avvenuta con successo' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Errore durante la cancellazione dell\'iscrizione al corso:', error);
+    res.status(500).json({ message: 'Errore del server' });
   }
 };
-
 
 export const getEnrolledCourses = async (req, res) => {
   try {

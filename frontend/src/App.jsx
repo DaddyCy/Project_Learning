@@ -1,14 +1,15 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import HomePage from './pages/HomePage';
-import AdminPage from './pages/AdminPage';
-import StudentPage from './pages/StudentPage';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import ProtectedRoute from './components/ProtectedRoute';
-import UnauthorizedPage from './pages/UnauthorizedPage';
-import NotFoundPage from './pages/NotFoundPage';
+import { AuthProvider } from './contexts/AuthContext.jsx';
+import HomePage from './pages/HomePage.jsx';
+import AdminPage from './pages/AdminPage.jsx';
+import StudentPage from './pages/StudentPage.jsx';
+import Login from './pages/Login.jsx';
+import Register from './pages/Register.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
+import UnauthorizedPage from './pages/UnauthorizedPage.jsx';
+import NotFoundPage from './pages/NotFoundPage.jsx';
+import CourseDetails from './components/CourseDetails.jsx';
 import "./App.css";
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='/unauthorized' element={<UnauthorizedPage />} />
+            <Route path="/course/:id" element={<CourseDetails />} />
             <Route 
               path='/admin/*' 
               element={

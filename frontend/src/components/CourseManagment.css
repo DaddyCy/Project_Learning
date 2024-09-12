@@ -1,0 +1,174 @@
+.course-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.course-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-img-overlay {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.card-title {
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+}
+
+.course-icons, .lesson-icons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.icon, .icon-button {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.icon:hover, .icon-button:hover {
+  color: #fff;
+  transform: scale(1.2);
+}
+
+.icon-button {
+  color: #007bff;
+}
+
+.icon-button.text-success {
+  color: #28a745;
+}
+
+.icon-button.text-danger {
+  color: #dc3545;
+}
+
+.full-screen-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.close-video {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.form-card {
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+/* Aggiungi spaziatura verticale ai form */
+.form-card .card-body {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+/* Aumenta la spaziatura tra gli elementi nella visualizzazione del corso */
+.mb-4 {
+  margin-bottom: 2rem !important;
+}
+
+/* .course-card {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .course-card .card-img-overlay {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .course-card:hover .card-img-overlay {
+    opacity: 1;
+  }
+  
+  .course-card .card-title {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 5px;
+  }
+  
+  .icon {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: white;
+    transition: transform 0.3s ease;
+  }
+  
+  .icon:hover {
+    transform: scale(1.2);
+  }
+  
+  .course-form, .lesson-form {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .lesson-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .lesson-icons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .lesson-video {
+    text-align: center;
+  }
+  
+  .lesson-video video {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    margin: 0 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .pagination span {
+    font-weight: bold;
+  } */

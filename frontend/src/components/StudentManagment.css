@@ -1,0 +1,51 @@
+.student-management {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 60px); /* Adjust 60px to match your footer height */
+    padding: 20px;
+  }
+  
+  .student-list-title {
+    font-weight: bold;
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .table-container {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  
+  .table {
+    margin-bottom: 2rem;
+  }
+  
+  .pagination-container {
+    margin-top: auto;
+    padding: 20px 0;
+  }
+  
+  .pagination {
+    background-color: transparent;
+  }
+  
+  .page-link {
+    background-color: transparent;
+    color: #000;
+    border: none;
+  }
+  
+  .page-number {
+    color: #000 !important; /* Ensure the number is always black */
+  }
+  
+  .page-item.active .page-link {
+    background-color: transparent;
+    font-weight: bold;
+  }
+  
+  .page-item.disabled .page-link {
+    color: #6c757d;
+  }

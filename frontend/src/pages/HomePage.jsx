@@ -1,61 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { getAllCourses } from '../services/AxiosApi';
-import HomeNavbar from '../components/HomeNavbar';
-import Footer from '../components/Footer';
+import React from 'react';
+import HomeNavbar from '../components/HomeNavbar.jsx';
+import Footer from '../components/Footer.jsx';
+import video1 from '/852292-hd_1728_1080_25fps.mp4';
+import video2 from '/7989674-hd_1920_1080_25fps.mp4';
+import video3 from '/852292-hd_1728_1080_25fps.mp4'; 
+import video4 from '/7989674-hd_1920_1080_25fps.mp4'; 
+import courseImage from '/code-820275_640.jpg';
 
 const HomePage = () => {
-  const [courses, setCourses] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-
-  useEffect(() => {
-    fetchCourses();
-  }, [currentPage]);
-
-  const fetchCourses = async () => {
-    try {
-      const response = await getAllCourses(currentPage, 10);
-      setCourses(response.data.courses);
-      setTotalPages(response.data.totalPages);
-    } catch (error) {
-      console.error('Error fetching courses:', error);
-    }
-  };
-
   return (
     <div>
       <HomeNavbar />
-      <div className="container mt-4">
-        <h1>Welcome to Our Course Platform</h1>
-        <div className="row">
-          {courses.map(course => (
-            <div key={course._id} className="col-md-4 mb-4">
-              <div className="card">
-                <img src={course.immagine} className="card-img-top" alt={course.titolo} />
-                <div className="card-body">
-                  <h5 className="card-title">{course.titolo}</h5>
-                  <p className="card-text">{course.descrizione}</p>
-                  <Link to={`/course/${course._id}`} className="btn btn-primary">View Course</Link>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="pagination">
-          <button 
-            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-          >
-            Previous
-          </button>
-          <span>{currentPage} of {totalPages}</span>
-          <button 
-            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-            disabled={currentPage === totalPages}
-          >
-            Next
-          </button>
+      <div className="container flex-grow-1 d-flex flex-column justify-content-between py-5">
+        <h1 className="text-center">Welcome to Platform</h1>
+        <div className="row h-100">
+          <div className="col-md-3 d-flex flex-column justify-content-between">
+            <video width="100%" controls className="shadow-lg mb-5 ">
+              <source src={video1} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <video width="100%" controls className="shadow-lg">
+              <source src={video2} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div className="col-md-6 d-flex align-items-center justify-content-center">
+            <img src={courseImage} alt="Course" className="img-fluid shadow-lg" style={{maxWidth: '80%', maxHeight: '200px', objectFit: 'cover'}} />
+          </div>
+          <div className="col-md-3 d-flex flex-column justify-content-between">
+            <video width="100%" controls className="shadow-lg mb-5">
+              <source src={video3} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <video width="100%" controls className="shadow-lg">
+              <source src={video4} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
         </div>
       </div>
       <Footer />

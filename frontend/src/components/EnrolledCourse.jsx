@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { getEnrolledCourses, unenrollCourse } from '../services/AxiosApi';
-import { useAuth } from '../hooks/useAuth';
+import { getEnrolledCourses, unenrollCourse } from '../services/AxiosApi.js';
+import { FaTimes } from 'react-icons/fa';
+import './EnrolledCourse.css';
 
-const EnrolledCourses = () => {
+const EnrolledCourse = () => {
   const [enrolledCourses, setEnrolledCourses] = useState([]);
-  const { user } = useAuth();
+  const [hoveredCourse, setHoveredCourse] = useState(null);
+  const [unenrollingCourse, setUnenrollingCourse] = useState(null);
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
     fetchEnrolledCourses();
@@ -20,44 +23,76 @@ const EnrolledCourses = () => {
   };
 
   const handleUnenroll = async (courseId) => {
-    if (window.confirm('Are you sure you want to unenroll from this course?')) {
-      try {
-        await unenrollCourse(courseId, user.username);
-        fetchEnrolledCourses();
-      } catch (error) {
-        console.error('Error unenrolling from course:', error);
-      }
+    if (!username) {
+      alert('Please enter your username');
+      return;
+    }
+    try {
+      await unenrollCourse(courseId, { username });
+      alert('Cancellazione dell\'iscrizione al corso avvenuta con successo');
+      fetchEnrolledCourses();
+      setUnenrollingCourse(null);
+      setUsername('');
+    } catch (error) {
+      console.error('Error unenrolling from course:', error);
+      alert('Errore durante la cancellazione dell\'iscrizione al corso. Per favore, riprova.');
     }
   };
 
   return (
-    <div>
-      <h2>My Enrolled Courses</h2>
-      {enrolledCourses.length > 0 ? (
-        <div className="row mt-4">
-          {enrolledCourses.map(course => (
+    <div className="container mt-4">
+      <h2 className="mb-4">My Courses</h2>
+      <div className="row">
+        {enrolledCourses.length > 0 ? (
+          enrolledCourses.map(course => (
             <div key={course._id} className="col-md-4 mb-4">
-              <div className="card">
-                <img src={course.immagine} className="card-img-top" alt={course.titolo} />
-                <div className="card-body">
-                  <h5 className="card-title">{course.titolo}</h5>
-                  <p className="card-text">{course.descrizione}</p>
-                  <button 
-                    className="btn btn-danger"
-                    onClick={() => handleUnenroll(course._id)}
-                  >
-                    Unenroll
-                  </button>
-                </div>
+              <div 
+                className="card course-card"
+                onMouseEnter={() => setHoveredCourse(course._id)}
+                onMouseLeave={() => setHoveredCourse(null)}
+              >
+                <img 
+                  src={course.immagine} 
+                  className="card-img-top" 
+                  alt={course.titolo}
+                />
+                {hoveredCourse === course._id && (
+                  <div className="card-img-overlay d-flex flex-column justify-content-between">
+                    <div className="d-flex justify-content-end">
+                      <FaTimes 
+                        className="unenroll-icon"
+                        onClick={() => setUnenrollingCourse(course._id)}
+                      />
+                    </div>
+                    <h5 id="mycard-title" className="card-title">{course.titolo}</h5>
+                  </div>
+                )}
+                {unenrollingCourse === course._id && (
+                  <div className="card-img-overlay d-flex flex-column justify-content-center align-items-center">
+                    <input
+                      type="text"
+                      placeholder="Enter username"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      className="form-control mb-2"
+                    />
+                    <button 
+                      className="btn btn-danger"
+                      onClick={() => handleUnenroll(course._id)}
+                    >
+                      Confirm Unenroll
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
-          ))}
-        </div>
-      ) : (
-        <p>You are not enrolled in any courses yet.</p>
-      )}
+          ))
+        ) : (
+          <p>You are not enrolled in any courses yet.</p>
+        )}
+      </div>
     </div>
   );
 };
 
-export default EnrolledCourses;
+export default EnrolledCourse;

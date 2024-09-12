@@ -12,7 +12,6 @@ const generateTokens = (userId, ruolo) => {
   return { accessToken, refreshToken };
 };
 
-
 export const register = async (req, res) => {
   try {
     const { email, password, nome, cognome, dataNascita, ruolo } = req.body;
@@ -43,8 +42,13 @@ export const register = async (req, res) => {
     res.status(201).json({ message: 'Utente registrato con successo' });
   } catch (error) {
     console.error('Errore durante la registrazione:', error);
-    res.status(500).json({ message: 'Errore del server durante la registrazione' });
+    if (error.name === 'ValidationError') {
+      const errors = Object.values(error.errors).map(err => err.message);
+      return res.status(400).json({ message: 'Errore di validazione', errors });
+    }
+    res.status(500).json({ message: 'Errore del server durante la registrazione', error: error.message });
   }
+  
 };
 
 export const login = async (req, res) => {
@@ -116,89 +120,3 @@ export const logout = async (req, res) => {
 
 
 
-// import  User from '../models/User.js';
-// import Student from '../models/Student.js';
-// import Admin from '../models/Admin.js';
-// import jwt from 'jsonwebtoken';
-// import {comparePassword} from '../middlewares/auth.js';
-
-// export const register = async (req, res) => {
-//   try {
-//     const { role, nome, cognome, dataNascita, email, password } = req.body;
-
-//     const user = new User({ role, nome, cognome, dataNascita, email, password });
-//     await user.save();
-
-//     if (role === 'student') {
-//       const student = new Student({ user: user._id });
-//       await student.save();
-//     } else if (role === 'admin') {
-//       const admin = new Admin({ user: user._id });
-//       await admin.save();
-//     }
-
-//     res.status(201).json({ message: 'Utente registrato con successo' });
-//   } catch (error) {
-//     res.status(400).json({ message: error.message });
-//   }
-// };
-
-// export const login = async (req, res) => {
-//   try {
-//     const { email, password } = req.body;
-//     const user = await User.findOne({ email });
-
-//     if (!user || !(await comparePassword(password, user.password))) {
-//       return res.status(400).json({ message: 'Credenziali non valide' });
-//     }
-
-//     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-//     res.json({ token });
-//   } catch (error) {
-//     res.status(400).json({ message: error.message });
-//   }
-// };
-
-
-// const User = require('../models/User');
-// const Student = require('../models/Student');
-// const Admin = require('../models/Admin');
-// const jwt = require('jsonwebtoken');
-// const { comparePassword } = require('../middlewares/auth');
-
-// exports.register = async (req, res) => {
-//   try {
-//     const { role, nome, cognome, dataNascita, email, password } = req.body;
-
-//     const user = new User({ role, nome, cognome, dataNascita, email, password });
-//     await user.save();
-
-//     if (role === 'student') {
-//       const student = new Student({ user: user._id });
-//       await student.save();
-//     } else if (role === 'admin') {
-//       const admin = new Admin({ user: user._id });
-//       await admin.save();
-//     }
-
-//     res.status(201).json({ message: 'Utente registrato con successo' });
-//   } catch (error) {
-//     res.status(400).json({ message: error.message });
-//   }
-// };
-
-// exports.login = async (req, res) => {
-//   try {
-//     const { email, password } = req.body;
-//     const user = await User.findOne({ email });
-
-//     if (!user || !(await comparePassword(password, user.password))) {
-//       return res.status(400).json({ message: 'Credenziali non valide' });
-//     }
-
-//     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-//     res.json({ token });
-//   } catch (error) {
-//     res.status(400).json({ message: error.message });
-//   }
-// };

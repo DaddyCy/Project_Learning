@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react';
-import { loginUser, refreshToken as refreshTokenApi, logoutUser } from '../services/AxiosApi';
+import { loginUser, refreshToken as refreshTokenApi, logoutUser } from '../services/AxiosApi.js';
 
 export const AuthContext = createContext();
 

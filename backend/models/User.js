@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-import { hashPassword } from '../middlewares/hashPassword.js';
+// import { hashPassword } from '../middlewares/hashPassword.js';
+import bcrypt from 'bcryptjs';
 
 const userSchema = new mongoose.Schema({
   ruolo: {
@@ -22,14 +23,27 @@ const userSchema = new mongoose.Schema({
       message: props => `La password deve contenere almeno un numero!`
     }
   },
-  googleId: { type: String },
   refreshToken: { type: String }
 }, {
   timestamps: true,
   collection: "users"
 });
 
-userSchema.pre('save', hashPassword);
+userSchema.pre('save', async function(next) {
+  if (!this.isModified('password')) return next();
+
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+userSchema.methods.comparePassword = async function(candidatePassword) {
+  return bcrypt.compare(candidatePassword, this.password);
+};
 
 export default mongoose.model("User", userSchema);
 

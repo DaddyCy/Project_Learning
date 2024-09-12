@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://blogpostapp-h7ib.onrender.com/api';
+const API_URL = 'http://localhost:5001/api';
 
 const api = axios.create({baseURL: API_URL});
 
@@ -50,17 +50,68 @@ export const refreshToken = (refreshToken) => api.post("/auth/refresh-token", { 
 export const logoutUser = () => api.post("/auth/logout");
 
 // Courses
-export const getAllCourses = (page, limit) => api.get(`/courses?page=${page}&limit=${limit}`);
-export const getCourse = (id) => api.get(`/courses/${id}`);
-export const createCourse = (courseData) => api.post('/courses/admin', courseData, {
-  headers: { "Content-Type": "multipart/form-data" }
-});
-export const updateCourse = (id, courseData) => api.put(`/courses/admin/${id}`, courseData, {
-  headers: { "Content-Type": "multipart/form-data" }
-});
-export const deleteCourse = (id) => api.delete(`/courses/admin/${id}`);
+export const getAllCourses = async () => {
+  try {
+    const response = await api.get('/courses');
+    console.log('Risposta API corsi:', response.data);
+    return response; // Restituisci l'intera risposta
+  } catch (error) {
+    console.error('Errore nel recupero dei corsi:', error);
+    throw error;
+  }
+};
+
+export const getCourse = async (id) => {
+  try {
+    const response = await api.get(`/courses/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching course:', error);
+    throw error;
+  }
+};
+
+export const createCourse = async (courseData) => {
+  try {
+    const response = await api.post('/courses/admin', courseData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error creating course:', error);
+    throw error;
+  }
+};
+
+export const updateCourse = async (id, courseData) => {
+  try {
+    const response = await api.put(`/courses/admin/${id}`, courseData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error updating course:', error);
+    throw error;
+  }
+};
+
+export const deleteCourse = async (id) => {
+  try {
+    const response = await api.delete(`/courses/admin/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting course:', error);
+    throw error;
+  }
+};
+
 
 // Lessons
+
 export const addLesson = (courseId, lessonData) => api.post(`/courses/admin/${courseId}/lessons`, lessonData, {
   headers: { "Content-Type": "multipart/form-data" }
 });
@@ -71,18 +122,70 @@ export const deleteLesson = (courseId, lessonId) => api.delete(`/courses/admin/$
 export const getLessonDetail = (courseId, lessonId) => api.get(`/courses/${courseId}/lessons/${lessonId}`);
 
 // Student
-export const enrollCourse = (courseId, username) => api.post(`/courses/student/${courseId}/enroll`, { username });
-export const unenrollCourse = (courseId, username) => api.post(`/courses/student/${courseId}/unenroll`, { username });
+
+export const enrollCourse = async (courseId, userData) => {
+  try {
+    const response = await api.post(`/courses/student/${courseId}/enroll`, userData);
+    return response.data;
+  } catch (error) {
+    console.error('Error enrolling in course:', error);
+    throw error;
+  }
+};
+
+export const unenrollCourse = async (courseId, userData) => {
+  try {
+    const response = await api.post(`/courses/student/${courseId}/unenroll`, userData);
+    return response.data;
+  } catch (error) {
+    console.error('Error unenrolling from course:', error);
+    throw error;
+  }
+};
 export const getEnrolledCourses = () => api.get('/courses/student/my-courses');
+
 export const getStudentDetails = () => api.get('/users/student/details');
+
 export const updateStudent = (userData) => api.put('/users/student/update', userData);
-export const uploadAvatar = (formData) => api.post('/users/student/avatar', formData, {
-  headers: { "Content-Type": "multipart/form-data" }
-});
-export const updateAvatar = (formData) => api.put('/users/student/avatar', formData, {
-  headers: { "Content-Type": "multipart/form-data" }
-});
-export const deleteAvatar = () => api.delete('/users/student/avatar');
+
+export const uploadAvatar = async (formData) => {
+  try {
+    const response = await api.post('/users/student/avatar', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error uploading avatar:', error);
+    throw error;
+  }
+};
+
+export const updateAvatar = async (formData) => {
+  try {
+    const response = await api.put('/users/student/avatar', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error updating avatar:', error);
+    throw error;
+  }
+};
+
+export const deleteAvatar = async () => {
+  try {
+    const response = await api.delete('/users/student/avatar');
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting avatar:', error);
+    throw error;
+  }
+};
+
 
 // Admin
 export const getAdminDetails = () => api.get('/users/admin/details');

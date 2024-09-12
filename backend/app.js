@@ -2,6 +2,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import {errorHandler} from './middlewares/errorHandler.js';
+import cors from 'cors';
 import dotenv from "dotenv";
 import listEndpoints from "express-list-endpoints";
 import { authenticateToken } from './middlewares/auth.js';
@@ -15,6 +16,7 @@ import user from './routes/user.js';
 dotenv.config();
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 

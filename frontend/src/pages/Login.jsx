@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth.js';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -28,7 +29,9 @@ const Login = () => {
 
   return (
     <div className="container mt-5">
-      <h2>Login</h2>
+      <Link to="/" className="btn btn-outline-light mb-5">
+        <FaArrowLeft /> Back to Home
+      </Link>
       {error && <div className="alert alert-danger">{error}</div>}
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
@@ -55,10 +58,12 @@ const Login = () => {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary">Login</button>
+        <button type="submit" className="btn btn-outline-dark">Login</button>
       </form>
     </div>
   );
 };
 
 export default Login;
+
+
