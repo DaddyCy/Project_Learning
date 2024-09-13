@@ -131,7 +131,8 @@ export default function StudentProfile() {
       {!editing ? (
         <div className="profile-container">
           <div className="profile-data">
-            <p><strong>Name:</strong> {studentDetails.nome} {studentDetails.cognome}</p>
+            <p><strong>Nome:</strong> {studentDetails.nome}</p>
+            <p><strong>Cognome:</strong> {studentDetails.cognome}</p>
             <p><strong>Email:</strong> {studentDetails.email}</p>
             <p><strong>Username:</strong> {studentDetails.username}</p>
           </div>
@@ -147,7 +148,7 @@ export default function StudentProfile() {
             ) : (
               <div className="no-avatar">
                 <p>Nessun avatar caricato</p>
-                <button className="btn btn-outline-primary" onClick={() => document.getElementById('avatarInput').click()}>Carica Avatar</button>
+                <button className="btn btn-outline-warning" onClick={() => document.getElementById('avatarInput').click()}>Carica Avatar</button>
               </div>
             )}
             <input
@@ -171,7 +172,7 @@ export default function StudentProfile() {
         <form onSubmit={handleSubmit} className="edit-form">
         <div className="row mb-3">
       <div className="col-md-6">
-        <label htmlFor="nome" className="form-label">First Name</label>
+        <label htmlFor="nome" className="form-label">Nome</label>
         <input
           type="text"
           className="form-control"
@@ -183,7 +184,7 @@ export default function StudentProfile() {
         />
       </div>
       <div className="col-md-6">
-        <label htmlFor="cognome" className="form-label">Last Name</label>
+        <label htmlFor="cognome" className="form-label">Cognome</label>
         <input
           type="text"
           className="form-control"
@@ -222,7 +223,7 @@ export default function StudentProfile() {
     </div>
     <div className="row mb-3">
       <div className="col-md-6">
-        <label htmlFor="currentPassword" className="form-label">Current Password</label>
+        <label htmlFor="currentPassword" className="form-label">Vecchia Password</label>
         <input
           type="password"
           className="form-control"
@@ -233,7 +234,7 @@ export default function StudentProfile() {
         />
       </div>
       <div className="col-md-6">
-        <label htmlFor="newPassword" className="form-label">New Password</label>
+        <label htmlFor="newPassword" className="form-label">Nuova Password</label>
         <input
           type="password"
           className="form-control"
@@ -253,134 +254,4 @@ export default function StudentProfile() {
     </div>
   );
 }
-
-//         <div className="container mt-4">
-//       {!editing ? (
-//         <div>
-//           <div className="row" style={{ minHeight: '200px' }}>
-//             <div className="col-md-8 d-flex flex-column justify-content-center">
-//               <p className="fs-5"><strong>Name:</strong> {studentDetails.nome} {studentDetails.cognome}</p>
-//               <p className="fs-5"><strong>Email:</strong> {studentDetails.email}</p>
-//               <p className="fs-5"><strong>Username:</strong> {studentDetails.username}</p>
-//             </div>
-//             <div className="col-md-4 d-flex flex-column justify-content-center align-items-center">
-//               {studentDetails.avatar ? (
-//                 <div>
-//                   <img src={studentDetails.avatar} alt="Avatar" className="img-thumbnail mb-2" style={{maxWidth: '220px'}} />
-//                   <br />
-//                   <button className="btn btn-outline-primary mb-2 w-100" onClick={() => document.getElementById('avatarInput').click()}>Modifica Avatar</button>
-//                   <button className="btn btn-outline-danger mb-2 w-100" onClick={handleDeleteAvatar}>Elimina Avatar</button>
-//                 </div>
-//               ) : (
-//                 <div>
-//                   <p>Nessun avatar caricato</p>
-//                   <button className="btn btn-outline-primary mb-2" onClick={() => document.getElementById('avatarInput').click()}>Carica Avatar</button>
-//                 </div>
-//               )}
-//               <input
-//                 type="file"
-//                 id="avatarInput"
-//                 style={{ display: 'none' }}
-//                 onChange={handleAvatarChange}
-//                 accept="image/*"
-//               />
-//               {avatarFile && (
-//                 <button className="btn btn-success w-100" onClick={studentDetails.avatar ? handleAvatarUpdate : handleAvatarUpload}>
-//                   {studentDetails.avatar ? 'Aggiorna Avatar' : 'Carica Avatar'}
-//                 </button>
-//               )}
-//             </div>
-//           </div>
-//           <div className="row mt-3">
-//             <div className="col-12 d-flex justify-content-center">
-//               <button className="btn btn-outline-dark w-40" onClick={() => setEditing(true)}>Modifica Profilo</button>
-//             </div>
-//           </div>
-//         </div>
-//       ) : (
-//         <form onSubmit={handleSubmit}>
-//     <div className="row mb-3">
-//       <div className="col-md-6">
-//         <label htmlFor="nome" className="form-label">First Name</label>
-//         <input
-//           type="text"
-//           className="form-control"
-//           id="nome"
-//           name="nome"
-//           value={formData.nome}
-//           onChange={handleInputChange}
-//           required
-//         />
-//       </div>
-//       <div className="col-md-6">
-//         <label htmlFor="cognome" className="form-label">Last Name</label>
-//         <input
-//           type="text"
-//           className="form-control"
-//           id="cognome"
-//           name="cognome"
-//           value={formData.cognome}
-//           onChange={handleInputChange}
-//           required
-//         />
-//       </div>
-//     </div>
-//     <div className="row mb-3">
-//       <div className="col-md-6">
-//         <label htmlFor="email" className="form-label">Email</label>
-//         <input
-//           type="email"
-//           className="form-control"
-//           id="email"
-//           name="email"
-//           value={formData.email}
-//           onChange={handleInputChange}
-//           required
-//         />
-//       </div>
-//       <div className="col-md-6">
-//         <label htmlFor="avatar" className="form-label">Avatar</label>
-//         <input
-//           type="file"
-//           className="form-control"
-//           id="avatar"
-//           name="avatar"
-//           onChange={handleAvatarChange}
-//           accept="image/*"
-//         />
-//       </div>
-//     </div>
-//     <div className="row mb-3">
-//       <div className="col-md-6">
-//         <label htmlFor="currentPassword" className="form-label">Current Password</label>
-//         <input
-//           type="password"
-//           className="form-control"
-//           id="currentPassword"
-//           name="currentPassword"
-//           value={formData.currentPassword}
-//           onChange={handleInputChange}
-//         />
-//       </div>
-//       <div className="col-md-6">
-//         <label htmlFor="newPassword" className="form-label">New Password</label>
-//         <input
-//           type="password"
-//           className="form-control"
-//           id="newPassword"
-//           name="newPassword"
-//           value={formData.newPassword}
-//           onChange={handleInputChange}
-//         />
-//       </div>
-//     </div>
-//     <div className="d-flex justify-content-center">
-//       <button type="submit" className="btn btn-outline-success me-2">Save Changes</button>
-//       <button type="button" className="btn btn-outline-danger" onClick={() => setEditing(false)}>Cancel</button>
-//     </div>
-//   </form>
-//       )} 
-//   </div>
-//    );
-// };
 

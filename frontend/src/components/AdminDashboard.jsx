@@ -73,11 +73,11 @@ const AdminDashboard = () => {
                   <table className="table table-borderless fs-4">
                     <tbody>
                       <tr>
-                        <th scope="row" className="text-end">Name:</th>
+                        <th scope="row" className="text-end">Nome:</th>
                         <td>{adminDetails?.nome}</td>
                       </tr>
                       <tr>
-                        <th scope="row" className="text-end">Surname:</th>
+                        <th scope="row" className="text-end">Cognome:</th>
                         <td>{adminDetails?.cognome}</td>
                       </tr>
                       <tr>
@@ -88,7 +88,7 @@ const AdminDashboard = () => {
                   </table>
                   <div className="text-center mt-3">
                     <FaEdit 
-                      className="text-primary" 
+                      className="text-danger" 
                       style={{cursor: 'pointer', fontSize: '1.5em'}} 
                       onClick={() => setEditing(true)}
                       title="Edit Profile"
@@ -102,7 +102,7 @@ const AdminDashboard = () => {
             <div className="col-md-4 mb-3 mb-md-0">
               <div className="card text-center">
                 <div className="card-body">
-                  <h5 className="card-title fs-4">Total Courses</h5>
+                  <h5 className="card-title fs-4">Totale Corsi</h5>
                   <p className="card-text fs-1">{coursesCount}</p>
                 </div>
               </div>
@@ -110,7 +110,7 @@ const AdminDashboard = () => {
             <div className="col-md-4">
               <div className="card text-center">
                 <div className="card-body">
-                  <h5 className="card-title fs-4">Total Students</h5>
+                  <h5 className="card-title fs-4">Totale Studenti</h5>
                   <p className="card-text fs-1">{studentsCount}</p>
                 </div>
               </div>
@@ -123,9 +123,8 @@ const AdminDashboard = () => {
             <div className="card">
               <div className="card-body">
                 <form onSubmit={handleUpdateAdmin}>
-                  <h3 className="card-title text-center mb-4">Edit Profile</h3>
                   <div className="mb-3">
-                    <label htmlFor="nome" className="form-label">First Name</label>
+                    <label htmlFor="nome" className="form-label">Nome</label>
                     <input
                       type="text"
                       className="form-control"
@@ -137,7 +136,7 @@ const AdminDashboard = () => {
                     />
                   </div>
                   <div className="mb-3">
-                    <label htmlFor="cognome" className="form-label">Last Name</label>
+                    <label htmlFor="cognome" className="form-label">Cognome</label>
                     <input
                       type="text"
                       className="form-control"
@@ -161,7 +160,7 @@ const AdminDashboard = () => {
                     />
                   </div>
                   <div className="mb-3">
-                    <label htmlFor="currentPassword" className="form-label">Current Password</label>
+                    <label htmlFor="currentPassword" className="form-label"> Vecchia Password</label>
                     <input
                       type="password"
                       className="form-control"
@@ -172,7 +171,7 @@ const AdminDashboard = () => {
                     />
                   </div>
                   <div className="mb-3">
-                    <label htmlFor="newPassword" className="form-label">New Password</label>
+                    <label htmlFor="newPassword" className="form-label">Nuova Password</label>
                     <input
                       type="password"
                       className="form-control"

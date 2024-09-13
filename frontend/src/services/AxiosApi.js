@@ -50,11 +50,11 @@ export const refreshToken = (refreshToken) => api.post("/auth/refresh-token", { 
 export const logoutUser = () => api.post("/auth/logout");
 
 // Courses
-export const getAllCourses = async () => {
+export const getAllCourses = async (page = 1, limit = 3) => {
   try {
-    const response = await api.get('/courses');
+    const response = await api.get(`/courses?page=${page}&limit=${limit}`);
     console.log('Risposta API corsi:', response.data);
-    return response; // Restituisci l'intera risposta
+    return response;
   } catch (error) {
     console.error('Errore nel recupero dei corsi:', error);
     throw error;
@@ -64,12 +64,13 @@ export const getAllCourses = async () => {
 export const getCourse = async (id) => {
   try {
     const response = await api.get(`/courses/${id}`);
-    return response.data;
+    return response;
   } catch (error) {
     console.error('Error fetching course:', error);
     throw error;
   }
 };
+
 
 export const createCourse = async (courseData) => {
   try {
@@ -119,6 +120,7 @@ export const updateLesson = (courseId, lessonId, lessonData) => api.put(`/course
   headers: { "Content-Type": "multipart/form-data" }
 });
 export const deleteLesson = (courseId, lessonId) => api.delete(`/courses/admin/${courseId}/lessons/${lessonId}`);
+
 export const getLessonDetail = (courseId, lessonId) => api.get(`/courses/${courseId}/lessons/${lessonId}`);
 
 // Student

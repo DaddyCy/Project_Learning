@@ -31,7 +31,7 @@ const AdminPage = () => {
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid ms-2">
           {adminDetails && (
-            <span className="navbar-brand">Welcome, {adminDetails.nome} {adminDetails.cognome}</span>
+            <span className="navbar-brand">Benvenuto, {adminDetails.nome} {adminDetails.cognome}</span>
           )}
           <div className="navbar-nav  me-4">
             <Link className="nav-link mx-3" to="/admin" title="Dashboard">

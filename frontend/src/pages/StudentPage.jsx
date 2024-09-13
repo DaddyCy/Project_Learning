@@ -23,7 +23,7 @@ const StudentPage = () => {
         ]);
         setStudentDetails(detailsResponse.data);
         
-        // Gestisci la struttura corretta della risposta
+        
         if (coursesResponse.data && Array.isArray(coursesResponse.data.courses)) {
           setCourses(coursesResponse.data.courses);
         } else {
@@ -65,7 +65,7 @@ const StudentPage = () => {
                   style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '10px' }}
                 />
               ) : null}
-              Welcome, {studentDetails.nome} {studentDetails.cognome}
+              Benvenuto, {studentDetails.nome} {studentDetails.cognome}
             </span>
           )}
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,10 +74,10 @@ const StudentPage = () => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
-                <Link to="/student/profile" className="nav-link" style={{ fontSize:'18px'}} >Profile</Link>
+                <Link to="/student/profile" className="nav-link" style={{ fontSize:'18px'}} >Profilo</Link>
               </li>
               <li className="nav-item">
-                <Link to="/student/courses" className="nav-link" style={{ fontSize:'18px'}}>My Courses</Link>
+                <Link to="/student/courses" className="nav-link" style={{ fontSize:'18px'}}>I Miei Corsi</Link>
               </li>
               <li className="nav-item mt-2 ms-1">
                 <LogoutButton/>

@@ -23,7 +23,7 @@ const StudentManagement = () => {
   };
 
   const handleDeleteStudent = async (id) => {
-    if (window.confirm('Are you sure you want to delete this student?')) {
+    if (window.confirm('Sei sicuro di voler eliminare questo studente?')) {
       try {
         await deleteStudent(id);
         fetchStudents();
@@ -35,17 +35,50 @@ const StudentManagement = () => {
 
   return (
     <div className="student-management">
-      <h2 className="student-list-title">Student List</h2>
+      <h2 className="student-list-title">Lista Studenti</h2>
+      
+      {totalPages > 1 && (
+        <div className="pagination-container mb-4">
+          <nav aria-label="Student list pagination">
+            <ul className="pagination justify-content-center">
+              <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                <button 
+                  className="page-link" 
+                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </button>
+              </li>
+              <li className="page-item active">
+                <span className="page-link page-number">
+                  {currentPage} di {totalPages}
+                </span>
+              </li>
+              <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                <button 
+                  className="page-link" 
+                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                  disabled={currentPage === totalPages}
+                >
+                  Next
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      )}
+      
       <div className="table-container">
         <div className="table-responsive">
           <table className="table table-hover table-striped">
             <thead className="thead-dark">
               <tr>
-                <th>Name</th>
+                <th>Nome</th>
                 <th>Email</th>
                 <th>Username</th>
-                <th>Enrolled Courses</th>
-                <th>Actions</th>
+                <th>Corsi Iscritti</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -68,37 +101,6 @@ const StudentManagement = () => {
           </table>
         </div>
       </div>
-      {totalPages > 1 && (
-        <div className="pagination-container">
-          <nav aria-label="Student list pagination">
-            <ul className="pagination justify-content-center">
-              <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                <button 
-                  className="page-link" 
-                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                  disabled={currentPage === 1}
-                >
-                  Previous
-                </button>
-              </li>
-              <li className="page-item active">
-                <span className="page-link page-number">
-                  {currentPage} of {totalPages}
-                </span>
-              </li>
-              <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
-                <button 
-                  className="page-link" 
-                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                  disabled={currentPage === totalPages}
-                >
-                  Next
-                </button>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      )}
     </div>
   );
 };

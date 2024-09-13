@@ -49,3 +49,10 @@
   .page-item.disabled .page-link {
     color: #6c757d;
   }
+
+.icon-btn-student{
+    color: rgb(49, 213, 123);
+  }
+.icon-btn-student-return{
+    color: rgb(217, 34, 34);
+  }

@@ -33,16 +33,16 @@ const HomeNavbar = () => {
               LearnEasilyWithDave
             </Link>
             
-            <Link id='logo-register' className="nav-link ms-3" to="/register" style={{
+            <Link id='logo-register' className="nav-link ms-2" to="/register" style={{
                 fontSize: "15px",
                 fontWeight: "bold",
                 color: "rgb(0, 0, 0)",
               }}>
-              <FaUserPlus size={24} color="black" /> Register
+              <FaUserPlus size={24} color="black" /> Registrazione
             </Link>
           </div>
 
-          <Link className="nav-link ms-3" to="/about">
+          <Link className="nav-link ms-3" to="/">
             <FaInfoCircle size={30} color="white" />
           </Link>
         </div>

@@ -1,0 +1,46 @@
+.lesson-card {
+  position: relative;
+  overflow: hidden;
+  height: 200px;  /* Adjust as needed */
+}
+
+.lesson-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lesson-card .card-img-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.lesson-card:hover .card-img-overlay {
+  opacity: 1;
+}
+
+.lesson-card .card-title {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.lesson-card .card-text {
+  font-size: 0.9rem;
+}
+
+.back-icon {
+  transition: transform 0.3s ease;
+}
+
+.back-icon:hover {
+  transform: translateX(-5px);
+}
+
+.description{
+    color: rgb(121, 125, 41);
+}

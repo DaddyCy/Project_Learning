@@ -7,7 +7,7 @@ import { cloudinary } from '../config/cloudinary.js'
 export const getAllCourses = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
+    const limit = parseInt(req.query.limit) || 3;
     const startIndex = (page - 1) * limit;
 
     const totalCourses = await Course.countDocuments();
@@ -27,17 +27,11 @@ export const getAllCourses = async (req, res) => {
   }
 };
 
+
 export const getCourse = async (req, res) => {
   try {
-    const course = await Course.findById(req.params.id);
+    const course = await Course.findById(req.params.id).populate('lezioni');
     if (!course) return res.status(404).json({ message: 'Corso non trovato' });
-    
-    if (req.user.role === 'student') {
-      const student = await Student.findOne({ user: req.user.userId });
-      if (!student.corsiIscritti.includes(course._id)) {
-        return res.status(403).json({ message: 'Non sei iscritto a questo corso' });
-      }
-    }
     res.json(course);
   } catch (error) {
     res.status(500).json({ message: error.message });

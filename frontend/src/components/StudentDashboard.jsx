@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { enrollCourse } from '../services/AxiosApi';
-import { FaUserPlus, FaInfoCircle, FaArrowLeft } from 'react-icons/fa';
+import { FaUserPlus, FaInfoCircle, FaArrowLeft, FaCheck } from 'react-icons/fa';
 import './StudentDashboard.css';
 
 const StudentDashboard = ({ courses }) => {
@@ -12,7 +12,7 @@ const StudentDashboard = ({ courses }) => {
 
   const handleEnroll = async (courseId) => {
     if (!username) {
-      alert('Please enter your username');
+      alert('Inserisci il tuo nome utente');
       return;
     }
     try {
@@ -22,7 +22,7 @@ const StudentDashboard = ({ courses }) => {
       setUsername('');
     } catch (error) {
       console.error('Error enrolling in course:', error);
-      alert('Error enrolling in course. Please try again.');
+      alert('Errore durante l\'iscrizione al corso. Riprova.');
     }
   };
 
@@ -32,7 +32,7 @@ const StudentDashboard = ({ courses }) => {
 
   return (
     <div>
-      <h2 className="mb-4">Available Courses</h2>
+      <h2 className="mb-4">Bacheca Corsi</h2>
       <div className="row">
         {Array.isArray(courses) && courses.length > 0 ? (
           courses.map(course => (
@@ -57,18 +57,24 @@ const StudentDashboard = ({ courses }) => {
                       <div className="enroll-form">
                         <input
                           type="text"
-                          placeholder="Enter username"
+                          placeholder="Inserisci username"
                           value={username}
                           onChange={(e) => setUsername(e.target.value)}
                           className="form-control mb-2"
                         />
-                        <FaArrowLeft 
-                          className="icon-btn"
-                          onClick={() => {
-                            setEnrollingCourse(null);
-                            setUsername('');
-                          }}
-                        />
+                        <div>
+                          <FaCheck 
+                            className="icon-btn-student ms-2 me-2"
+                            onClick={() => handleEnroll(course._id)}
+                          />
+                          <FaArrowLeft 
+                            className="icon-btn-student-return"
+                            onClick={() => {
+                              setEnrollingCourse(null);
+                              setUsername('');
+                            }}
+                          />
+                        </div>
                       </div>
                     ) : (
                       <>
@@ -88,7 +94,7 @@ const StudentDashboard = ({ courses }) => {
             </div>
           ))
         ) : (
-          <p>There are no courses available at the moment.</p>
+          <p>Non ci sono corsi disponibili al momento.</p>
         )}
       </div>
     </div>

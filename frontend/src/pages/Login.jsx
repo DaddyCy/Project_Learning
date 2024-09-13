@@ -30,7 +30,7 @@ const Login = () => {
   return (
     <div className="container mt-5">
       <Link to="/" className="btn btn-outline-light mb-5">
-        <FaArrowLeft /> Back to Home
+        <FaArrowLeft /> Torna alla Home
       </Link>
       {error && <div className="alert alert-danger">{error}</div>}
       <form onSubmit={handleSubmit}>
@@ -58,7 +58,7 @@ const Login = () => {
             required
           />
         </div>
-        <button type="submit" className="btn btn-outline-dark">Login</button>
+        <button type="submit" className="btn btn-outline-dark">Conferma Iscrizione</button>
       </form>
     </div>
   );

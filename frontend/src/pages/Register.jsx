@@ -13,8 +13,8 @@ const Register = () => {
     ruolo: "student",
   });
   
-  const [minDate, setMinDate] = useState(""); // Definisce lo stato della data di nascita(min)
-  const [maxDate, setMaxDate] = useState(""); // Definisce lo stato della data di nascita(max)
+  const [minDate, setMinDate] = useState("");
+  const [maxDate, setMaxDate] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -47,7 +47,7 @@ const Register = () => {
   return (
     <div className="container mt-5">
       <Link to="/" className="mb-3 btn btn-outline-light">
-        <FaArrowLeft /> Back to Home
+        <FaArrowLeft /> Torna alla Home
       </Link>
       {error && <div className="alert alert-danger">{error}</div>}
       <form onSubmit={handleSubmit}>
@@ -136,7 +136,7 @@ const Register = () => {
           </div>
         </div>
 
-        <button type="submit" className="mt-3 btn btn-outline-dark">Register</button>
+        <button type="submit" className="mt-3 btn btn-outline-dark">Conferma Registrazione</button>
       </form>
     </div>
   );
