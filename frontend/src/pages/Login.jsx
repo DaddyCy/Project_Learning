@@ -58,7 +58,7 @@ const Login = () => {
             required
           />
         </div>
-        <button type="submit" className="btn btn-outline-dark">Conferma Iscrizione</button>
+        <button type="submit" className="btn btn-outline-dark">Conferma Accesso</button>
       </form>
     </div>
   );

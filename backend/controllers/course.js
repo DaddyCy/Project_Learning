@@ -201,31 +201,7 @@ export const updateLesson = async (req, res) => {
   }
 };
 
-// export const deleteLesson = async (req, res) => {
-//   try {
-//     const course = await Course.findById(req.params.id);
-//     if (!course) return res.status(404).json({ message: 'Corso non trovato' });
 
-//     const lessonIndex = course.lezioni.findIndex(
-//       (lezione) => lezione._id.toString() === req.params.lessonId
-//     );
-
-//     if (lessonIndex === -1) return res.status(404).json({ message: 'Lezione non trovata' });
-
-//     const lesson = course.lezioni[lessonIndex];
-//     if (lesson.videoUrl) {
-//       const publicId = lesson.videoUrl.split('/').pop().split('.')[0];
-//       await cloudinary.uploader.destroy(publicId, { resource_type: 'video' });
-//     }
-
-//     course.lezioni.splice(lessonIndex, 1);
-//     await course.save();
-
-//     res.json({ message: 'Lezione eliminata con successo' });
-//   } catch (error) {
-//     res.status(400).json({ message: error.message });
-//   }
-// };
 
 export const deleteLesson = async (req, res) => {
   try {
@@ -276,27 +252,6 @@ export const enrollCourse = async (req, res) => {
   }
 };
 
-// export const unenrollCourse = async (req, res) => {
-//   try {
-//     const { username } = req.body;
-//     const course = await Course.findById(req.params.id);
-//     if (!course) return res.status(404).json({ message: 'Corso non trovato' });
-
-//     const student = await Student.findOne({ username, user: req.user.userId });
-//     if (!student) return res.status(404).json({ message: 'Studente non trovato o username non corretto' });
-
-//     const index = student.corsiIscritti.indexOf(course._id);
-//     if (index > -1) {
-//       student.corsiIscritti.splice(index, 1);
-//       await student.save();
-//       res.json({ message: 'Cancellazione dal corso avvenuta con successo' });
-//     } else {
-//       res.status(400).json({ message: 'Non sei iscritto a questo corso' });
-//     }
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
 
 export const unenrollCourse = async (req, res) => {
   try {

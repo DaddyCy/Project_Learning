@@ -3,28 +3,6 @@ import User from '../models/User.js';
 import Student from '../models/Student.js';
 import Course from '../models/Course.js';
 
-// export const updateAdmin = async (req, res) => {
-//   try {
-//     const { nome, cognome, email } = req.body;
-//     const admin = await Admin.findOne({ user: req.user.userId }).populate('user');
-   
-//     if (!admin) {
-//       return res.status(404).json({ message: 'Admin non trovato' });
-//     }
-
-//     Object.assign(admin.user, {
-//       nome: nome || admin.user.nome,
-//       cognome: cognome || admin.user.cognome,
-//       email: email || admin.user.email,
-      
-//     });
-
-//     await admin.user.save();
-//     res.json({ message: 'Dati admin aggiornati con successo' });
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// };
 
 export const updateAdmin = async (req, res) => {
   try {

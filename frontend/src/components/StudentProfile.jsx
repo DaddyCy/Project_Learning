@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getStudentDetails, updateStudent, uploadAvatar, updateAvatar, deleteAvatar } from '../services/AxiosApi.js';
-import { FaEdit, FaTrash, FaCheck, FaArrowLeft } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaCheck, FaArrowLeft, FaUpload } from 'react-icons/fa';
 import './StudentProfile.css';
 
-export default function StudentProfile() {
+export default function StudentProfile({ onProfileUpdate }) {
   const [studentDetails, setStudentDetails] = useState(null);
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({
@@ -14,6 +14,7 @@ export default function StudentProfile() {
     currentPassword: '',
     newPassword: ''
   });
+  const [isEditingAvatar, setIsEditingAvatar] = useState(false);
   const [avatarFile, setAvatarFile] = useState(null);
   const navigate = useNavigate();
 
@@ -47,7 +48,6 @@ export default function StudentProfile() {
       setAvatarFile(e.target.files[0]);
     }
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -59,6 +59,7 @@ export default function StudentProfile() {
       }
       
       alert('Profilo aggiornato con successo');
+      onProfileUpdate(); // Chiamata alla funzione di aggiornamento
     } catch (error) {
       console.error('Errore dettagliato:', error.response || error);
       alert('Errore durante l\'aggiornamento del profilo');
@@ -79,6 +80,7 @@ export default function StudentProfile() {
       formData.append('avatar', avatarFile);
       await uploadAvatar(formData);
       await fetchStudentDetails();
+      onProfileUpdate(); // Chiamata alla funzione di aggiornamento
       alert('Avatar caricato con successo');
     } catch (error) {
       console.error('Errore nel caricamento dell\'avatar:', error);
@@ -99,6 +101,7 @@ export default function StudentProfile() {
       formData.append('avatar', avatarFile);
       await updateAvatar(formData);
       await fetchStudentDetails();
+      onProfileUpdate(); // Chiamata alla funzione di aggiornamento
       alert('Avatar aggiornato con successo');
     } catch (error) {
       console.error('Errore nell\'aggiornamento dell\'avatar:', error);
@@ -113,6 +116,7 @@ export default function StudentProfile() {
     try {
       await deleteAvatar();
       await fetchStudentDetails();
+      onProfileUpdate(); // Chiamata alla funzione di aggiornamento
       alert('Avatar eliminato con successo');
     } catch (error) {
       console.error('Errore nell\'eliminazione dell\'avatar:', error);
@@ -121,7 +125,17 @@ export default function StudentProfile() {
       navigate('/student');
     }
   };
+  
+  const handleAvatarEdit = () => {
+    setIsEditingAvatar(true);
+    setAvatarFile(null);
+  };
 
+  const handleAvatarEditCancel = () => {
+    setIsEditingAvatar(false);
+    setAvatarFile(null);
+  };
+  
   if (!studentDetails) {
     return <div>Loading...</div>;
   }
@@ -137,31 +151,51 @@ export default function StudentProfile() {
             <p><strong>Username:</strong> {studentDetails.username}</p>
           </div>
           <div className="avatar-container">
-            {studentDetails.avatar ? (
-              <div className="avatar-wrapper">
-                <img src={studentDetails.avatar} alt="Avatar" className="avatar-image" />
-                <div className="avatar-overlay">
-                  <FaEdit className="avatar-icon edit-icon" onClick={() => document.getElementById('avatarInput').click()} />
-                  <FaTrash className="avatar-icon delete-icon" onClick={handleDeleteAvatar} />
+            {!isEditingAvatar ? (
+              <>
+                {studentDetails.avatar ? (
+                  <div className="avatar-wrapper">
+                    <img src={studentDetails.avatar} alt="Avatar" className="avatar-image" />
+                    <div className="avatar-overlay">
+                      <FaEdit className="avatar-icon edit-icon" onClick={handleAvatarEdit} />
+                      <FaTrash className="avatar-icon delete-icon" onClick={handleDeleteAvatar} />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="no-avatar">
+                    <p>Nessun avatar caricato</p>
+                    <button className="btn btn-info" onClick={handleAvatarEdit}>Carica Avatar</button>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="avatar-edit-container">
+                <input
+                  type="file"
+                  id="avatarInput"
+                  onChange={handleAvatarChange}
+                  accept="image/*"
+                  style={{ display: 'none' }}
+                />
+                <label htmlFor="avatarInput" className="btn btn-warning mb-2">
+                  <FaUpload /> Seleziona Immagine
+                </label>
+                {avatarFile && (
+                  <p className="selected-file">File selezionato: {avatarFile.name}</p>
+                )}
+                <div className="avatar-actions">
+                  <button 
+                    className="btn btn-success me-2" 
+                    onClick={studentDetails.avatar ? handleAvatarUpdate : handleAvatarUpload}
+                    disabled={!avatarFile}
+                  >
+                    <FaCheck /> {studentDetails.avatar ? 'Aggiorna' : 'Carica'}
+                  </button>
+                  <button className="btn btn-outline-danger" onClick={handleAvatarEditCancel}>
+                    <FaArrowLeft /> Annulla
+                  </button>
                 </div>
               </div>
-            ) : (
-              <div className="no-avatar">
-                <p>Nessun avatar caricato</p>
-                <button className="btn btn-outline-warning" onClick={() => document.getElementById('avatarInput').click()}>Carica Avatar</button>
-              </div>
-            )}
-            <input
-              type="file"
-              id="avatarInput"
-              style={{ display: 'none' }}
-              onChange={handleAvatarChange}
-              accept="image/*"
-            />
-            {avatarFile && (
-              <button className="btn btn-success mt-2" onClick={studentDetails.avatar ? handleAvatarUpdate : handleAvatarUpload}>
-                {studentDetails.avatar ? 'Aggiorna Avatar' : 'Carica Avatar'}
-              </button>
             )}
           </div>
           <div className="edit-profile-button">

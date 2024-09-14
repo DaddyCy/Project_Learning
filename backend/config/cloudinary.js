@@ -1,5 +1,3 @@
-//TODO Modificare grandezza file?
-
 // Importiamo le dipendenze necessarie
 import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";

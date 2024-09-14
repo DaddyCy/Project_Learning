@@ -15,7 +15,7 @@
   padding: 10px 0;
 }
 
-/* Assicurati che il contenuto principale abbia un margine inferiore */
+
 main {
-  margin-bottom: 60px; /* Regola questo valore in base all'altezza del tuo footer */
+  margin-bottom: 60px; 
 }

@@ -28,7 +28,7 @@ const AdminPage = () => {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>
         <div className="container-fluid ms-2">
           {adminDetails && (
             <span className="navbar-brand">Benvenuto, {adminDetails.nome} {adminDetails.cognome}</span>

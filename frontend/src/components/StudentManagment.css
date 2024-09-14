@@ -1,7 +1,7 @@
 .student-management {
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 60px); /* Adjust 60px to match your footer height */
+    min-height: calc(100vh - 60px); 
     padding: 20px;
   }
   
@@ -38,7 +38,7 @@
   }
   
   .page-number {
-    color: #000 !important; /* Ensure the number is always black */
+    color: #000 !important; 
   }
   
   .page-item.active .page-link {
